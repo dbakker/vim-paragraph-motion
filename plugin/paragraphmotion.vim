@@ -42,9 +42,9 @@ endfunction
 
 nnoremap <unique> <silent> } :<C-U>call ParagraphMove( 1, 0, v:count)<CR>
 onoremap <unique> <silent> } :<C-U>call ParagraphMove( 1, 0, v:count)<CR>
-vnoremap <unique> <silent> } :<C-U>call ParagraphMove( 1, 1, v:count)<CR>
+xnoremap <unique> <silent> } :<C-U>call ParagraphMove( 1, 1, v:count)<CR>
 nnoremap <unique> <silent> { :<C-U>call ParagraphMove(-1, 0, v:count)<CR>
 onoremap <unique> <silent> { :<C-U>call ParagraphMove(-1, 0, v:count)<CR>
-vnoremap <unique> <silent> { :<C-U>call ParagraphMove(-1, 1, v:count)<CR>
+xnoremap <unique> <silent> { :<C-U>call ParagraphMove(-1, 1, v:count)<CR>
 
 " vim:set sw=2:
