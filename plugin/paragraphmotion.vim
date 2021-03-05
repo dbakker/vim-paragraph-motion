@@ -37,7 +37,6 @@ function! ParagraphMove(delta, visual, count)
         endif
         let i += 1
     endwhile
-    normal |
 endfunction
 
 nnoremap <unique> <silent> } :<C-U>call ParagraphMove( 1, 0, v:count)<CR>
