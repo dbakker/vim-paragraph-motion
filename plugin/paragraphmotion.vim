@@ -13,26 +13,26 @@ function! ParagraphMove(delta, visual, count)
 
     let i = 0
     if a:delta > 0
+        " Forward paragraph motion.
         normal! 0
         while i < a:count
             " First empty or whitespace-only line below a line that contains
             " non-whitespace characters.
-            let pos1 = search('\m\S', 'W')
-            let pos2 = search('\m^\s*$', 'W')
-            if pos1 == 0 || pos2 == 0
-                let pos = search('\m\%$', 'W')
+            if search('\m\S', 'W') == 0 || search('\m^\s*$', 'W') == 0
+                call search('\m\%$', 'W')
+                return
             endif
             let i += 1
         endwhile
     elseif a:delta < 0
+        " Backward paragraph motion.
         normal! ^
         while i < a:count
             " First empty or whitespace-only line above a line that contains
             " non-whitespace characters.
-            let pos1 = search('\m\S', 'bcW')
-            let pos2 = search('\m^\s*$', 'bW')
-            if pos1 == 0 || pos2 == 0
-                let pos = search('\m\%^', 'bW')
+            if search('\m\S', 'bcW') == 0 || search('\m^\s*$', 'bW') == 0
+                call cursor(1, 1)
+                return
             endif
             let i += 1
         endwhile
