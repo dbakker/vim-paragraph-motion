@@ -11,16 +11,10 @@ function! ParagraphMove(delta, visual, count)
         normal gv
     endif
 
-    if a:count == 0
-        let limit = 1
-    else
-        let limit = a:count
-    endif
-
     let i = 0
     if a:delta > 0
         normal! 0
-        while i < limit
+        while i < a:count
             " First empty or whitespace-only line below a line that contains
             " non-whitespace characters.
             let pos1 = search('\m\S', 'W')
@@ -32,7 +26,7 @@ function! ParagraphMove(delta, visual, count)
         endwhile
     elseif a:delta < 0
         normal! ^
-        while i < limit
+        while i < a:count
             " First empty or whitespace-only line above a line that contains
             " non-whitespace characters.
             let pos1 = search('\m\S', 'bcW')
@@ -45,9 +39,9 @@ function! ParagraphMove(delta, visual, count)
     endif
 endfunction
 
-nnoremap <unique> <silent> } :<C-U>call ParagraphMove( 1, 0, v:count)<CR>
-onoremap <unique> <silent> } :<C-U>call ParagraphMove( 1, 0, v:count)<CR>
-xnoremap <unique> <silent> } :<C-U>call ParagraphMove( 1, 1, v:count)<CR>
-nnoremap <unique> <silent> { :<C-U>call ParagraphMove(-1, 0, v:count)<CR>
-onoremap <unique> <silent> { :<C-U>call ParagraphMove(-1, 0, v:count)<CR>
-xnoremap <unique> <silent> { :<C-U>call ParagraphMove(-1, 1, v:count)<CR>
+nnoremap <unique> <silent> } :<C-U>call ParagraphMove( 1, 0, v:count1)<CR>
+onoremap <unique> <silent> } :<C-U>call ParagraphMove( 1, 0, v:count1)<CR>
+xnoremap <unique> <silent> } :<C-U>call ParagraphMove( 1, 1, v:count1)<CR>
+nnoremap <unique> <silent> { :<C-U>call ParagraphMove(-1, 0, v:count1)<CR>
+onoremap <unique> <silent> { :<C-U>call ParagraphMove(-1, 0, v:count1)<CR>
+xnoremap <unique> <silent> { :<C-U>call ParagraphMove(-1, 1, v:count1)<CR>
