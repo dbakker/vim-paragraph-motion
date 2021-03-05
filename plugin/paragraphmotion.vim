@@ -22,17 +22,17 @@ function! ParagraphMove(delta, visual, count)
     while i < limit
         if a:delta > 0
             " first whitespace-only line following a non-whitespace character
-            let pos1 = search("\\S", "W")
-            let pos2 = search("^\\s*$", "W")
+            let pos1 = search('\m\S', 'W')
+            let pos2 = search('\m^\s*$', 'W')
             if pos1 == 0 || pos2 == 0
-                let pos = search("\\%$", "W")
+                let pos = search('\m\%$', 'W')
             endif
         elseif a:delta < 0
             " first whitespace-only line preceding a non-whitespace character
-            let pos1 = search("\\S", "bW")
-            let pos2 = search("^\\s*$", "bW")
+            let pos1 = search('\m\S', 'bW')
+            let pos2 = search('\m^\s*$', 'bW')
             if pos1 == 0 || pos2 == 0
-                let pos = search("\\%^", "bW")
+                let pos = search('\m\%^', 'bW')
             endif
         endif
         let i += 1
