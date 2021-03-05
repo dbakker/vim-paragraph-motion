@@ -6,9 +6,9 @@ endif
 let g:loaded_paragraphmotion=1
 
 function! ParagraphMove(delta, visual, count)
-    normal m'
+    normal! m'
     if a:visual
-        normal gv
+        normal! gv
     endif
 
     let i = 0
