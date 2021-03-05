@@ -7,7 +7,6 @@ let g:loaded_paragraphmotion=1
 
 function! ParagraphMove(delta, visual, count)
     normal m'
-    normal |
     if a:visual
         normal gv
     endif
@@ -19,24 +18,31 @@ function! ParagraphMove(delta, visual, count)
     endif
 
     let i = 0
-    while i < limit
-        if a:delta > 0
-            " first whitespace-only line following a non-whitespace character
+    if a:delta > 0
+        normal! 0
+        while i < limit
+            " First empty or whitespace-only line below a line that contains
+            " non-whitespace characters.
             let pos1 = search('\m\S', 'W')
             let pos2 = search('\m^\s*$', 'W')
             if pos1 == 0 || pos2 == 0
                 let pos = search('\m\%$', 'W')
             endif
-        elseif a:delta < 0
-            " first whitespace-only line preceding a non-whitespace character
-            let pos1 = search('\m\S', 'bW')
+            let i += 1
+        endwhile
+    elseif a:delta < 0
+        normal! ^
+        while i < limit
+            " First empty or whitespace-only line above a line that contains
+            " non-whitespace characters.
+            let pos1 = search('\m\S', 'bcW')
             let pos2 = search('\m^\s*$', 'bW')
             if pos1 == 0 || pos2 == 0
                 let pos = search('\m\%^', 'bW')
             endif
-        endif
-        let i += 1
-    endwhile
+            let i += 1
+        endwhile
+    endif
 endfunction
 
 nnoremap <unique> <silent> } :<C-U>call ParagraphMove( 1, 0, v:count)<CR>
@@ -45,5 +51,3 @@ xnoremap <unique> <silent> } :<C-U>call ParagraphMove( 1, 1, v:count)<CR>
 nnoremap <unique> <silent> { :<C-U>call ParagraphMove(-1, 0, v:count)<CR>
 onoremap <unique> <silent> { :<C-U>call ParagraphMove(-1, 0, v:count)<CR>
 xnoremap <unique> <silent> { :<C-U>call ParagraphMove(-1, 1, v:count)<CR>
-
-" vim:set sw=2:
