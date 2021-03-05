@@ -5,7 +5,10 @@ if exists("g:loaded_paragraphmotion") || &cp
 endif
 let g:loaded_paragraphmotion=1
 
-function! ParagraphMove(delta, visual, count)
+let s:save_cpo = &cpo
+set cpo&vim
+
+function! s:ParagraphMove(delta, visual, count)
     normal! m'
     if a:visual
         normal! gv
@@ -39,9 +42,12 @@ function! ParagraphMove(delta, visual, count)
     endif
 endfunction
 
-nnoremap <unique> <silent> } :<C-U>call ParagraphMove( 1, 0, v:count1)<CR>
-onoremap <unique> <silent> } :<C-U>call ParagraphMove( 1, 0, v:count1)<CR>
-xnoremap <unique> <silent> } :<C-U>call ParagraphMove( 1, 1, v:count1)<CR>
-nnoremap <unique> <silent> { :<C-U>call ParagraphMove(-1, 0, v:count1)<CR>
-onoremap <unique> <silent> { :<C-U>call ParagraphMove(-1, 0, v:count1)<CR>
-xnoremap <unique> <silent> { :<C-U>call ParagraphMove(-1, 1, v:count1)<CR>
+nnoremap <unique> <silent> } :<C-U>call <SID>ParagraphMove( 1, 0, v:count1)<CR>
+onoremap <unique> <silent> } :<C-U>call <SID>ParagraphMove( 1, 0, v:count1)<CR>
+xnoremap <unique> <silent> } :<C-U>call <SID>ParagraphMove( 1, 1, v:count1)<CR>
+nnoremap <unique> <silent> { :<C-U>call <SID>ParagraphMove(-1, 0, v:count1)<CR>
+onoremap <unique> <silent> { :<C-U>call <SID>ParagraphMove(-1, 0, v:count1)<CR>
+xnoremap <unique> <silent> { :<C-U>call <SID>ParagraphMove(-1, 1, v:count1)<CR>
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
