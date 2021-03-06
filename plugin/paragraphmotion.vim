@@ -1,9 +1,12 @@
-" Based on: http://stackoverflow.com/questions/1853025/make-and-ignore-lines-containing-only-whitespace
+" Normally, the { and } motions only match completely empty lines.
+" With this plugin, lines that only contain whitespace are also matched.
+" URL: https://github.com/dbakker/vim-paragraph-motion
+" License: BSD Zero Clause License (0BSD)
 
-if exists("g:loaded_paragraphmotion") || &cp
-  finish
+if exists('g:loaded_paragraphmotion') || &cp
+    finish
 endif
-let g:loaded_paragraphmotion=1
+let g:loaded_paragraphmotion = 1
 
 let s:save_cpo = &cpo
 set cpo&vim
@@ -15,8 +18,7 @@ function! s:ParagraphMove(delta, visual, count)
     endif
 
     let i = 0
-    if a:delta > 0
-        " Forward paragraph motion.
+    if a:delta > 0  " Forward paragraph motion.
         normal! 0
         while i < a:count
             " First empty or whitespace-only line below a line that contains
@@ -27,8 +29,7 @@ function! s:ParagraphMove(delta, visual, count)
             endif
             let i += 1
         endwhile
-    elseif a:delta < 0
-        " Backward paragraph motion.
+    elseif a:delta < 0  " Backward paragraph motion.
         normal! ^
         while i < a:count
             " First empty or whitespace-only line above a line that contains
