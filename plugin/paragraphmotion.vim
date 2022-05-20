@@ -34,7 +34,7 @@ function! s:ParagraphMove(delta, visual, count)
         while i < a:count
             " First empty or whitespace-only line above a line that contains
             " non-whitespace characters.
-            if search('\m\[^[:space:]]', 'bcW') == 0 || search('\m^[[:space:]]*$', 'bW') == 0
+            if search('\m[^[:space:]]', 'bcW') == 0 || search('\m^[[:space:]]*$', 'bW') == 0
                 call cursor(1, 1)
                 return
             endif
